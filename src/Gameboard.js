@@ -4,7 +4,7 @@ export class Gameboard {
 	constructor() {
 		// key is xy, value is index in ships array
 		this.board = {};
-		this.missedAttacks = {};
+		this.missedAttacks = [];
 		this.ships = [];
 	}
 
@@ -47,9 +47,19 @@ export class Gameboard {
 	}
 
 	display() {
+        console.log('board')
 		console.table(this.board);
+        console.log('ships')
 		console.table(this.ships);
+        console.log('misses')
+        console.table(this.missedAttacks)
 	}
 
-	receiveAttack() {}
+	receiveAttack(coord) {
+        if (coord in this.board){
+            this.shipAt(coord).hit()
+        } else {
+            this.missedAttacks.push(coord)
+        }
+    }
 }

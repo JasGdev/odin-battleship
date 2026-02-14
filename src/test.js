@@ -72,4 +72,18 @@ describe("Gameboard tests", () => {
 			"Your ship at 1,1 is taken up by another ship",
 		);
 	});
+
+    test("recieveAttack()", () => {
+        let ship1 = new Ship(2);
+        gameboard.placeShipAt(ship1, "11", "h");
+		expect(gameboard.shipAt("11")).toBe(ship1);
+		expect(gameboard.shipAt("21")).toBe(ship1);
+		expect(gameboard.shipAt("31")).toBe(ship1);
+        gameboard.receiveAttack(11)
+        expect(gameboard.shipAt("11").numOfHits).toBe(1)
+        gameboard.receiveAttack(22)
+        expect(gameboard.missedAttacks.includes(22))
+        gameboard.display()
+
+    })
 });
