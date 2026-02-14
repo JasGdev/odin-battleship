@@ -5,7 +5,7 @@
 	},
 	"scripts": {
 		"test": "jest",
-		"watchShip": "jest --watch src/Ship.test.js",
+		"watch": "jest --watch src/test.js",
 		"auto": "nodemon"
 	}, 
 	"type": "module"
