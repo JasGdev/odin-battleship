@@ -4,7 +4,7 @@ export class Gameboard {
 	constructor() {
 		// key is xy, value is index in ships array
 		this.board = {};
-		this.missedAttacks = [];
+		this.missedAttacks = new Set();
 		this.ships = [];
 	}
 
@@ -59,7 +59,14 @@ export class Gameboard {
         if (coord in this.board){
             this.shipAt(coord).hit()
         } else {
-            this.missedAttacks.push(coord)
+            this.missedAttacks.add(coord)
         }
+    }
+
+    isAllSunk(){
+        for (const ship of this.ships){
+            if (!ship.isSunk()) return false
+        }
+        return true
     }
 }
