@@ -69,4 +69,8 @@ export class Gameboard {
         }
         return true
     }
+
+	setupBoard(){
+		
+	}
 }
