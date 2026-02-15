@@ -12,5 +12,10 @@ function setupBoard(player1, player2){
 
 }
 
+function populateBoardForPlayer(board, player){
+    
+
+}
+
 
 export {initDisplay}

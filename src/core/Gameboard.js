@@ -36,7 +36,8 @@ export class Gameboard {
 
 		this.ships.push(ship);
 
-		for (pos of positions) {
+
+		for (const pos of positions) {
 			this.board[pos] = this.ships.indexOf(ship);
 		}
 	}

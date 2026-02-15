@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "jest",
 		"watch": "jest --watch src/core/test.js",
-		"auto": "nodemon"
+		"auto": "nodemon src/index.js"
 	}, 
 	"type": "module"
 }
