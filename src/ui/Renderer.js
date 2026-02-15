@@ -9,8 +9,8 @@ function renderDisplay(player1, player2) {
 function setupBoard(player1, player2) {
 	populateBoardForPlayer(player1board, player1);
 	populateBoardForPlayer(player2board, player2);
-    renderMessage('White = miss')
-    renderMessage('Red = hit')
+    renderMessage('White = miss', 'white')
+    renderMessage('Red = hit', 'red')
 }
 
 function populateBoardForPlayer(displayBoard, player) {
@@ -32,8 +32,9 @@ function populateBoardForPlayer(displayBoard, player) {
 
 
 
-function renderMessage(string){
+function renderMessage(string, color = 'black'){
     const message = document.createElement('div')
+    message.style.color = color
     message.textContent = string
     messageDisplay.prepend(message)
 }

@@ -18,13 +18,9 @@
 	width: 1500px;
 	height: fit-content;
 	display: grid;
-	grid-column: 2fr 5fr 2fr;
+	grid-template-columns: 2fr 3fr 2fr;
 	color: white;
-    padding-bottom: 20px;
-}
-
-.info div {
-	font-size: 1.3rem;
+	padding-bottom: 20px;
 }
 
 .yourShips {
@@ -42,18 +38,21 @@
 }
 
 .label {
-    padding: 10px;
+	padding: 10px;
+    font-size: 30px;
+    font-weight: bold;
 }
+
 .message .content {
+    font-size: 18px;
 	height: 350px;
 	overflow-y: auto;
-    background-color: rgb(220, 220, 220);
-    color: black;
-    /* padding: 20px; */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 10px;
+    scrollbar-gutter: stable;
+	color: black;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+    padding-left: 20px;
 }
 
 .display {
@@ -91,7 +90,6 @@
 .gameboard .hidden {
 	background-color: rgb(61, 61, 61);
 }
-
 
 .hit {
 	background-color: rgb(182, 182, 182);
