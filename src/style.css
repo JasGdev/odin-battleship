@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+    font-family: ap;
 }
 
 .container {
@@ -18,16 +19,54 @@
     gap: 100px;
 }
 
-.board1, .board2{
+
+
+.gameboard{
+    grid-area: 2/2;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    background-color: gray;
+    display: grid;
+    grid: repeat(10, 1fr) / repeat(10, 1fr)
+    
+}
+
+
+
+
+
+.display1, .display2{
     height: 800px;
     width: 800px;
-    display: flex;
+    display: grid;
+    grid: 1fr 10fr / 1fr 10fr;
 }
 
-.board1{
+.display1{
     background-color: white;
+    color: black;
 }
 
-.board2{
+.display2{
     background-color: black;
+    color: white;
+}
+
+
+.yAxis {
+    grid-area: 1/2/2/3;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 30px;
+}
+
+.xAxis {
+    grid-area: 2/1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 30px;
+
 }

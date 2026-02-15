@@ -77,8 +77,8 @@ export class Gameboard {
 		const ship4 = new Ship(4)
 
 		this.placeShipAt(ship1, 11, 'h')
-		this.placeShipAt(ship2, 21, 'h')
-		this.placeShipAt(ship3, 31, 'h')
-		this.placeShipAt(ship4, 41, 'h')
+		this.placeShipAt(ship2, 12, 'h')
+		this.placeShipAt(ship3, 13, 'h')
+		this.placeShipAt(ship4, 14, 'h')
 	}
 }

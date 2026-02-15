@@ -8,3 +8,5 @@ const player1 = new Player('real', board1)
 
 const board2= new Gameboard()
 const player2 = new Player('real', board2)
+
+initDisplay(player1, player2)
