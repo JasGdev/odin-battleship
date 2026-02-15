@@ -30,22 +30,26 @@
     gap: 2px;
 }
 
-.gameboard .cell{
-    background-color: white;
+.cell{
+    background-color: rgb(238, 238, 238);
 }
 
-/* .gameboard1 .cell{
-    background-color: black;
-} */
+.gameboard div:hover{
+    opacity: 0.85;
+}
 
-.gameboard1 #hasShip{
+
+.gameboard1 .hasShip{
     background-color: rgb(0, 23, 200);
 }
 
-.gameboard2 #hasShip{
+.gameboard2 .hasShip{
     background-color: rgb(255, 0, 0);
 }
 
+.gameboard .hidden{
+    background-color: rgb(129, 129, 129);
+}
 
 
 .display1, .display2{
@@ -55,14 +59,9 @@
     grid: 1fr 10fr / 1fr 10fr;
 }
 
-/* .display1{
-    background-color: white;
-    color: black;
-} */
-
 .display1, .display2{
     background-color: black;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 

@@ -59,8 +59,10 @@ export class Gameboard {
 	receiveAttack(coord) {
         if (coord in this.board){
             this.shipAt(coord).hit()
+			console.log(`hit at ${coord}`)
         } else {
             this.missedAttacks.add(coord)
+			console.log('Missed')
         }
     }
 
