@@ -10,7 +10,6 @@ export function initControl(player, boardNum = 2) {
 				player.gameBoard.receiveAttack(coord);
 				cell.classList.remove("hidden");
                 cell.classList.add('hit')
-                renderDisplay()
 			});
 		}
 	}

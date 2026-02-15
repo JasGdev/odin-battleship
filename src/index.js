@@ -1,7 +1,7 @@
 import { Player } from "./core/Player.js";
 import { Ship } from "./core/Ship.js";
 import { Gameboard } from "./core/Gameboard.js";
-import { renderDisplay } from "./ui/Renderer.js";
+import { renderDisplay, setupBoard } from "./ui/Renderer.js";
 import { initControl } from "./ui/Controller.js";
 
 const board1 = new Gameboard()
@@ -18,5 +18,6 @@ console.log(player2.gameBoard.board)
 
 
 
-renderDisplay(player1, player2)
+// renderDisplay(player1, player2)
+setupBoard(player1, player2)
 initControl(player2)

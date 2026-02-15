@@ -1,13 +1,16 @@
 const player1board = document.querySelector(".gameboard1");
 const player2board = document.querySelector(".gameboard2");
+const messageDisplay = document.querySelector('.message .content')
 
 function renderDisplay(player1, player2) {
-	setupBoard(player1, player2);
+	
 }
 
 function setupBoard(player1, player2) {
 	populateBoardForPlayer(player1board, player1);
 	populateBoardForPlayer(player2board, player2);
+    renderMessage('White = miss')
+    renderMessage('Red = hit')
 }
 
 function populateBoardForPlayer(displayBoard, player) {
@@ -27,4 +30,12 @@ function populateBoardForPlayer(displayBoard, player) {
 	}
 }
 
-export { renderDisplay };
+
+
+function renderMessage(string){
+    const message = document.createElement('div')
+    message.textContent = string
+    messageDisplay.prepend(message)
+}
+
+export { renderDisplay, renderMessage, setupBoard};

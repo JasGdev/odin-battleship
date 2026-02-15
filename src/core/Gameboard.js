@@ -6,6 +6,7 @@ export class Gameboard {
 		this.board = {};
 		this.missedAttacks = new Set();
 		this.ships = [];
+		this.attacks = new Set();
 	}
 
 	placeShipAt(ship, coord, direction) {
@@ -17,7 +18,7 @@ export class Gameboard {
 		let y = Number(coord.toString().at(1));
 		let length = ship.length;
 
-		for (let i = 0; i <= length; i++) {
+		for (let i = 0; i < length; i++) {
 			let xPos;
 			let yPos;
 			if (direction == "h") {
@@ -78,10 +79,12 @@ export class Gameboard {
 		const ship2 = new Ship(2)
 		const ship3 = new Ship(3)
 		const ship4 = new Ship(4)
+		const ship5 = new Ship(5)
 
 		this.placeShipAt(ship1, 11, 'h')
 		this.placeShipAt(ship2, 12, 'h')
 		this.placeShipAt(ship3, 13, 'h')
 		this.placeShipAt(ship4, 14, 'h')
+		this.placeShipAt(ship5, 15, 'h')
 	}
 }
