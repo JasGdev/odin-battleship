@@ -1,16 +1,20 @@
 const player1board = document.querySelector(".gameboard1");
 const player2board = document.querySelector(".gameboard2");
-const messageDisplay = document.querySelector('.message .content')
+const messageDisplay = document.querySelector(".message .content");
 
-function renderDisplay(player1, player2) {
+function renderDisplay(player) {
+	let playerShips = player.gameBoard.ships;
+    renderShipMessage(player)
 	
 }
 
 function setupBoard(player1, player2) {
 	populateBoardForPlayer(player1board, player1);
 	populateBoardForPlayer(player2board, player2);
-    renderMessage('White = miss', 'white')
-    renderMessage('Red = hit', 'red')
+	renderMessage("White = miss", "white");
+	renderMessage("Red = hit", "red");
+	renderShipMessage(player1);
+	renderShipMessage(player2);
 }
 
 function populateBoardForPlayer(displayBoard, player) {
@@ -25,18 +29,33 @@ function populateBoardForPlayer(displayBoard, player) {
 			}
 			cell.setAttribute("id", `c${coord}`);
 			displayBoard.appendChild(cell);
-            if (player.type == 'ai') cell.classList.add('hidden')
+			if (player.type == "ai") cell.classList.add("hidden");
 		}
 	}
 }
 
-
-
-function renderMessage(string, color = 'black'){
-    const message = document.createElement('div')
-    message.style.color = color
-    message.textContent = string
-    messageDisplay.prepend(message)
+function renderMessage(string, color = "black") {
+	const message = document.createElement("div");
+	message.style.color = color;
+	message.textContent = string;
+	messageDisplay.prepend(message);
 }
 
-export { renderDisplay, renderMessage, setupBoard};
+// gets called by renderDisplay(), which is called by Controller
+function renderShipMessage(player) {
+	let shipType = player.type == "real" ? "yourShips" : "enemyShips";
+	let shipMessage = document.querySelector(`.${shipType} .content`);
+	shipMessage.innerHTML = "";
+	let playerShips = player.gameBoard.ships;
+	for (const ship of playerShips) {
+		const message = document.createElement("div");
+		message.classList.add(`${player.type}-${ship.length}`);
+		message.textContent = `${ship.length} length ship`;
+		shipMessage.appendChild(message);
+		if (ship.isSunk()) {
+			message.style.textDecoration = "line-through";
+		}
+	}
+}
+
+export { renderDisplay, renderMessage, setupBoard };

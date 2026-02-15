@@ -2,7 +2,7 @@ import { Player } from "./core/Player.js";
 import { Ship } from "./core/Ship.js";
 import { Gameboard } from "./core/Gameboard.js";
 import { renderDisplay, setupBoard } from "./ui/Renderer.js";
-import { initControl } from "./ui/Controller.js";
+import { initBoardControl } from "./ui/Controller.js";
 
 const board1 = new Gameboard()
 board1.setupBoard()
@@ -12,12 +12,12 @@ const board2= new Gameboard()
 board2.setupBoard()
 const player2 = new Player('ai', board2)
 
-console.log(player1.gameBoard.board)
+console.table(player1.gameBoard.ships)
 
-console.log(player2.gameBoard.board)
+console.table(player2.gameBoard.ships)
 
 
 
 // renderDisplay(player1, player2)
 setupBoard(player1, player2)
-initControl(player2)
+initBoardControl(player2)

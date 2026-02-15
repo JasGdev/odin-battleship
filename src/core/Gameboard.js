@@ -59,20 +59,31 @@ export class Gameboard {
 		console.table(this.missedAttacks);
 	}
 
-	receiveAttack(coord) {
-		console.log(coord)
-		console.log(this.missedAttacks)
+	receiveAttack(coord, playerType) {
+		const self = playerType = 'ai' ? 'You':"AI";
+		const other = playerType = 'ai' ? 'my':"your";
 		if (this.attacks.has(coord)) {
-			renderMessage("You already attacked this coordinate try again", 'yellow');
+			renderMessage(`${self} already attacked this coordinate try again`, 'yellow');
+			return false
 		} else {
 			if (coord in this.board) {
 				this.shipAt(coord).hit();
-				renderMessage(`Hit at ${coord}`, 'red');
+				renderMessage(`${self} hit at ${coord}`, 'red');
+				const hitShip = this.shipAt(coord)
+				if (hitShip.isSunk()){
+					renderMessage(`${self} sunk ${other} ${hitShip.length} length ship` , 'red')
+				}
+				if (this.isAllSunk()){
+					renderMessage(`${self} sunk all ${other} ships! Game Over`, 'red')
+					return
+				}
+
 			} else {
 				this.missedAttacks.add(coord);
-				renderMessage(`Missed at ${coord}`, 'white');
+				renderMessage(`${self} missed at ${coord}`, 'white');
 			}
 			this.attacks.add(coord)
+			return true
 		}
 	}
 

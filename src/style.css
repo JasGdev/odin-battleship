@@ -25,6 +25,7 @@
 
 .yourShips {
 	grid-column: 1/2;
+    padding-left: 20px;
 }
 
 .message {
@@ -35,16 +36,27 @@
 .enemyShips {
 	grid-column: 3/4;
 	text-align: end;
+    padding-right: 20px;
+}
+
+.yourShips .content, .enemyShips .content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 1.7rem;
+    height: 350px;
+
 }
 
 .label {
-	padding: 10px;
-    font-size: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 1.9rem;
     font-weight: bold;
 }
 
 .message .content {
-    font-size: 18px;
+    font-size: 1.6rem;
 	height: 350px;
 	overflow-y: auto;
     scrollbar-gutter: stable;
