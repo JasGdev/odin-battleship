@@ -25,13 +25,26 @@
     grid-area: 2/2;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    background-color: gray;
     display: grid;
-    grid: repeat(10, 1fr) / repeat(10, 1fr)
-    
+    grid: repeat(10, 1fr) / repeat(10, 1fr);
+    gap: 2px;
 }
 
+.gameboard .cell{
+    background-color: white;
+}
 
+/* .gameboard1 .cell{
+    background-color: black;
+} */
+
+.gameboard1 #hasShip{
+    background-color: rgb(0, 23, 200);
+}
+
+.gameboard2 #hasShip{
+    background-color: rgb(255, 0, 0);
+}
 
 
 
@@ -42,12 +55,12 @@
     grid: 1fr 10fr / 1fr 10fr;
 }
 
-.display1{
+/* .display1{
     background-color: white;
     color: black;
-}
+} */
 
-.display2{
+.display1, .display2{
     background-color: black;
     color: white;
 }
