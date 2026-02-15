@@ -13,8 +13,8 @@ export class Gameboard {
 		// h extends right, v extends down
 		// coord will be 'xy'
 		let positions = [];
-		let x = Number(coord.at(0));
-		let y = Number(coord.at(1));
+		let x = Number(coord.toString().at(0));
+		let y = Number(coord.toString().at(1));
 		let length = ship.length;
 
 		for (let i = 0; i <= length; i++) {
@@ -71,6 +71,14 @@ export class Gameboard {
     }
 
 	setupBoard(){
-		
+		const ship1 = new Ship(1)
+		const ship2 = new Ship(2)
+		const ship3 = new Ship(3)
+		const ship4 = new Ship(4)
+
+		this.placeShipAt(ship1, 11, 'h')
+		this.placeShipAt(ship2, 21, 'h')
+		this.placeShipAt(ship3, 31, 'h')
+		this.placeShipAt(ship4, 41, 'h')
 	}
 }

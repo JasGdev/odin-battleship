@@ -109,4 +109,10 @@ describe("Gameboard tests", () => {
 
         // gameboard.display()
     })
+
+	test("setupBoard()", () => {
+		gameboard.setupBoard()
+
+		expect(gameboard.ships.length).toBe(4)
+	})
 });

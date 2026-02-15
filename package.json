@@ -5,7 +5,7 @@
 	},
 	"scripts": {
 		"test": "jest",
-		"watch": "jest --watch src/test.js",
+		"watch": "jest --watch src/core/test.js",
 		"auto": "nodemon"
 	}, 
 	"type": "module"
