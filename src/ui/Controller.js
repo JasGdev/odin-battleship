@@ -9,7 +9,6 @@ export function initBoardControl(attacker, boardOwner, boardNum = 2) {
 			cell.addEventListener('click', function () {
 				// for attacking
 				if (boardOwner.gameBoard.receiveAttack(coord, attacker, boardOwner, cell) == true) {
-					
 					aiPlayTurn(attacker, boardOwner);
 					renderDisplay(boardOwner);
 					renderDisplay(attacker);
@@ -18,7 +17,6 @@ export function initBoardControl(attacker, boardOwner, boardNum = 2) {
 		}
 	}
 }
-
 
 export function aiPlayTurn(player, ai) {
 	const aiPlayedMoves = player.gameBoard.attacks;
@@ -42,16 +40,16 @@ export function setupBoard(player) {
 		ships.forEach((ship) => {
 			let coord = getRandomCoord();
 			let direction = getRandomDirection();
-			while (player.gameBoard.placeShipAt(ship, coord, direction,	 player.type) == false) {
+			while (player.gameBoard.placeShipAt(ship, coord, direction, player.type) == false) {
 				coord = getRandomCoord();
 				direction = getRandomDirection();
 			}
 		});
 	} else {
-		renderMessage('Click on your display to place your ships', 'white')
-		renderMessage('Order: ship size 2, 3, 4, 5', 'white')
-		placeShipControls(player, ships[0])
-		// player.isTurn = true
+		renderMessage('Click on your display to place your ships', 'white');
+		renderMessage('Order: ship size 2, 3, 4, 5', 'white');
+		placeShipControls(player, ships[0]);
+		player.isTurn = true
 	}
 }
 
@@ -60,16 +58,13 @@ function placeShipControls(player, ship) {
 		for (let x = 0; x <= 9; x++) {
 			const coord = `${x}${y}`;
 			const cell = document.querySelector(`.gameboard1 #c${coord}`);
-
-			console.log(cell)
-			cell.addEventListener('mousedown', function() {
-				console.log(coord)
-				player.gameBoard.placeShipAt(ship, coord, 'h', 'real')
-				console.log(1)
+			cell.addEventListener('mousedown', function () {
+				console.log(coord);
+				player.gameBoard.placeShipAt(ship, coord, 'h', 'real');
+				console.log(1);
 				// console.log(player.gameBoard)
-				renderDisplay(player)
+				renderDisplay(player);
 			});
-
 		}
 	}
 }

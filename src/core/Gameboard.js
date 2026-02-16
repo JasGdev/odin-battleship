@@ -33,12 +33,12 @@ export class Gameboard {
 				yPos = y - i;
 			}
 			if (`${xPos}${yPos}` in this.board) {
-				if (type == 'real') renderMessage(`Your ship at ${xPos},${yPos} is taken up by another ship`, 'white');
+				if (type == 'real') renderMessage(`Your ship at ${xPos+1},${yPos+1} is taken up by another ship`, 'white');
 
 				return false;
 			}
 			if (xPos < 0 || xPos > 9 || yPos < 0 || yPos > 9) {
-				if (type == 'real') renderMessage(`Your ship at ${xPos},${yPos} is out of bounds`, 'white');
+				if (type == 'real') renderMessage(`Your ship at ${xPos+1},${yPos+1} is out of bounds`, 'white');
 				return false;
 			}
 
@@ -79,13 +79,14 @@ export class Gameboard {
 			attacker.isTurn = false;
 			boardOwner.isTurn = true;
 			if (boardOwner.type == 'ai') cell.classList.remove('hidden');
-
+			const xCoord = Number(coord.at(0))+1
+			const yCoord = Number(coord.at(1))+1
 			// if a ship is hit
 			if (coord in this.board) {
 				this.shipAt(coord).hit();
 				cell.classList.add('hit');
 
-				renderMessage(`${self} hit at ${coord}`, 'red');
+				renderMessage(`${self} hit at ${xCoord},${yCoord}`, 'red');
 				const hitShip = this.shipAt(coord);
 				if (hitShip.isSunk()) {
 					renderMessage(`${self} sunk ${other} ${hitShip.length} length ship`, 'red');
@@ -101,7 +102,7 @@ export class Gameboard {
 			else {
 				cell.classList.add('missed');
 				this.missedAttacks.add(coord);
-				renderMessage(`${self} missed at ${coord}`, 'white');
+				renderMessage(`${self} missed at ${xCoord},${yCoord}`, 'white');
 			}
 			this.attacks.add(coord);
 			return true;
