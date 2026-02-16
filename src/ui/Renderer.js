@@ -6,6 +6,8 @@ function renderDisplay(player) {
     renderShipMessage(player)
 	if (player.type == 'real'){
 		updateBoardForPlayer(player1board, player)
+	} else {
+		updateBoardForPlayer(player2board, player)
 	}
 }
 
