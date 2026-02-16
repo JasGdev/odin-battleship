@@ -1,5 +1,5 @@
 import { Ship } from '../core/Ship.js';
-import { renderDisplay, renderMessage } from './Renderer.js';
+import { previewShipAt, renderDisplay, renderMessage, undoPreview } from './Renderer.js';
 
 export function initBoardControl(attacker, boardOwner, boardNum = 2) {
 	for (let y = 0; y <= 9; y++) {
@@ -69,22 +69,20 @@ function placeShipControls(player, ship) {
 			});
 
 			cell.addEventListener('mousemove', (e) => {
-				if (!isDragging)
-			})
-
-
-
-
-
-
-
+				if (!isDragging) return;
+				
+				const endCoord = coord; // current hovered cell
+				const direction = getDirection(startCoord, endCoord);
+				previewShipAt(startCoord, direction, ship[shipIndex].length)
+				renderDisplay(player);
+			});
 
 			cell.addEventListener('mouseup', (e) => {
+				undoPreview()
 				if (!isDragging) return;
-
+				0;
 				isDragging = false;
 				const endCoord = coord;
-
 				const direction = getDirection(startCoord, endCoord);
 
 				if (shipIndex > ship.length) {
@@ -125,9 +123,8 @@ function getDirection(start, end) {
 	const dy = endY - startY;
 
 	if (Math.abs(dx) >= Math.abs(dy)) {
-		return dx > 0 ? 'r' : 'l';
+		return dx >= 0 ? 'r' : 'l';
 	} else {
-		return dy > 0 ? 'd' : 'u';
+		return dy >= 0 ? 'd' : 'u';
 	}
-	
 }
