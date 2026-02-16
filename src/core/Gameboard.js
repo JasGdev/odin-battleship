@@ -11,7 +11,6 @@ export class Gameboard {
 	}
 
 	placeShipAt(ship, coord, direction) {
-		if (coord.length > 2) throw new Error(`enter valid xy coord`);
 		// h extends right, v extends down
 		// coord will be 'xy'
 		let positions = [];
@@ -29,17 +28,25 @@ export class Gameboard {
 				xPos = x;
 				yPos = y - i;
 			}
-			if (`${xPos}${yPos}` in this.board) throw new Error(`Your ship at ${xPos},${yPos} is taken up by another ship`);
-			if (xPos < 0 || xPos > 9 || yPos < 0 || yPos > 9)
-				throw new Error(`Your ship at ${xPos},${yPos} is out of bounds`);
+			if (`${xPos}${yPos}` in this.board) {
+				renderMessage(`Your ship at ${xPos},${yPos} is taken up by another ship`);
+				return false;
+			}
+			if (xPos < 0 || xPos > 9 || yPos < 0 || yPos > 9) {
+				renderMessage(`Your ship at ${xPos},${yPos} is out of bounds`);
+				return false 
+			}
+
 			positions.push(`${xPos}${yPos}`);
 		}
 
 		this.ships.push(ship);
+		
 
 		for (const pos of positions) {
 			this.board[pos] = this.ships.indexOf(ship);
 		}
+		return true
 	}
 
 	shipAt(coord) {
@@ -67,13 +74,13 @@ export class Gameboard {
 		} else {
 			attacker.isTurn = false;
 			boardOwner.isTurn = true;
-			if (boardOwner.type == 'ai') cell.classList.remove('hidden')
+			if (boardOwner.type == 'ai') cell.classList.remove('hidden');
 
 			// if a ship is hit
 			if (coord in this.board) {
 				this.shipAt(coord).hit();
-				cell.classList.add('hit')
-				
+				cell.classList.add('hit');
+
 				renderMessage(`${self} hit at ${coord}`, 'red');
 				const hitShip = this.shipAt(coord);
 				if (hitShip.isSunk()) {
@@ -85,10 +92,10 @@ export class Gameboard {
 					boardOwner.isTurn = false;
 					return;
 				}
-			} 
+			}
 			// if a miss
 			else {
-				cell.classList.add('missed')
+				cell.classList.add('missed');
 				this.missedAttacks.add(coord);
 				renderMessage(`${self} missed at ${coord}`, 'white');
 			}
@@ -102,19 +109,5 @@ export class Gameboard {
 			if (!ship.isSunk()) return false;
 		}
 		return true;
-	}
-
-	setupBoard() {
-		const ship1 = new Ship(1);
-		const ship2 = new Ship(2);
-		const ship3 = new Ship(3);
-		const ship4 = new Ship(4);
-		const ship5 = new Ship(5);
-
-		this.placeShipAt(ship1, 11, 'h');
-		this.placeShipAt(ship2, 12, 'h');
-		this.placeShipAt(ship3, 13, 'h');
-		this.placeShipAt(ship4, 14, 'h');
-		this.placeShipAt(ship5, 15, 'h');
 	}
 }

@@ -110,8 +110,8 @@ describe("Gameboard tests", () => {
         // gameboard.display()
     })
 
-	test("setupBoard()", () => {
-		gameboard.setupBoard()
+	test("setupBoardDisplay()", () => {
+		gameboard.setupBoardDisplay()
 
 		expect(gameboard.ships.length).toBe(4)
 	})

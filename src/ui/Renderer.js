@@ -2,13 +2,12 @@ const player1board = document.querySelector(".gameboard1");
 const player2board = document.querySelector(".gameboard2");
 const messageDisplay = document.querySelector(".message .content");
 
-function renderDisplay(player) {
-	let playerShips = player.gameBoard.ships;
+function renderDisplay(player) {		
     renderShipMessage(player)
 	
 }
 
-function setupBoard(player1, player2) {
+function setupBoardDisplay(player1, player2) {
 	populateBoardForPlayer(player1board, player1);
 	populateBoardForPlayer(player2board, player2);
 	renderMessage("White = miss", "white");
@@ -58,4 +57,4 @@ function renderShipMessage(player) {
 	}
 }
 
-export { renderDisplay, renderMessage, setupBoard };
+export { renderDisplay, renderMessage, setupBoardDisplay };
