@@ -25,10 +25,16 @@ export class Gameboard {
 		for (let i = 0; i < length; i++) {
 			let xPos;
 			let yPos;
-			if (direction == 'h') {
+			if (direction == 'r') {
 				xPos = x + i;
 				yPos = y;
-			} else if (direction == 'v') {
+			} else if (direction == 'd') {
+				xPos = x;
+				yPos = y + i;
+			} if (direction == 'l') {
+				xPos = x - i;
+				yPos = y;
+			} else if (direction == 'u') {
 				xPos = x;
 				yPos = y - i;
 			}

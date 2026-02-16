@@ -46,29 +46,57 @@ export function setupBoard(player) {
 			}
 		});
 	} else {
-		renderMessage('Click on your display to place your ships', 'white');
-		renderMessage('Order: ship size 2, 3, 4, 5', 'white');
+		renderMessage('Click/drag on a grid to place your ship', 'white');
+		renderMessage('ship size 2, 3, 4, 5', 'white');
+		renderMessage('Your ships are placed in the following order:', 'white');
 		placeShipControls(player, ships);
-		player.isTurn = true;
 	}
 }
 
 function placeShipControls(player, ship) {
 	let shipIndex = 0;
+	let isDragging = false;
+	let startCoord = null;
+
 	for (let y = 0; y <= 9; y++) {
 		for (let x = 0; x <= 9; x++) {
 			const coord = `${x}${y}`;
 			const cell = document.querySelector(`.gameboard1 #c${coord}`);
-			cell.addEventListener('mousedown', function () {
-				if (shipIndex > ship.length){
-					return
+			cell.addEventListener('mousedown', (e) => {
+				isDragging = true;
+				startCoord = coord;
+				renderDisplay(player);
+			});
+
+			cell.addEventListener('mousemove', (e) => {
+				if (!isDragging)
+			})
+
+
+
+
+
+
+
+
+			cell.addEventListener('mouseup', (e) => {
+				if (!isDragging) return;
+
+				isDragging = false;
+				const endCoord = coord;
+
+				const direction = getDirection(startCoord, endCoord);
+
+				if (shipIndex > ship.length) {
+					return;
 				}
-				if (player.gameBoard.placeShipAt(ship[shipIndex], coord, 'h', 'real') == true) {
+				if (player.gameBoard.placeShipAt(ship[shipIndex], startCoord, direction, 'real') == true) {
 					shipIndex += 1;
 				}
-				if (shipIndex == ship.length){
-					renderMessage("Ok, game start! Try and sink the AI's ships", 'white')
+				if (shipIndex == ship.length) {
+					renderMessage("Ok, game start! Try and sink the AI's ships", 'white');
 					shipIndex += 1;
+					player.isTurn = true;
 				}
 				renderDisplay(player);
 			});
@@ -83,5 +111,23 @@ function getRandomCoord() {
 }
 
 function getRandomDirection() {
-	return Math.random() > 0.5 ? 'h' : 'v';
+	return Math.random() > 0.5 ? 'r' : 'd';
+}
+
+function getDirection(start, end) {
+	const startX = Number(start[0]);
+	const startY = Number(start[1]);
+
+	const endX = Number(end[0]);
+	const endY = Number(end[1]);
+
+	const dx = endX - startX;
+	const dy = endY - startY;
+
+	if (Math.abs(dx) >= Math.abs(dy)) {
+		return dx > 0 ? 'r' : 'l';
+	} else {
+		return dy > 0 ? 'd' : 'u';
+	}
+	
 }

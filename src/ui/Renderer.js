@@ -34,6 +34,8 @@ function updateBoardForPlayer(displayBoard, player){
 	
 }
 
+// function preview
+
 function populateBoardForPlayer(displayBoard, player) {
 	let playerBoard = player.gameBoard.board;
 	for (let y = 0; y <= 9; y++) {
