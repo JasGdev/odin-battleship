@@ -2,24 +2,40 @@ const player1board = document.querySelector(".gameboard1");
 const player2board = document.querySelector(".gameboard2");
 const messageDisplay = document.querySelector(".message .content");
 
-function renderDisplay(player) {		
+function renderDisplay(player) {	
     renderShipMessage(player)
-	
+	if (player.type == 'real'){
+		updateBoardForPlayer(player1board, player)
+	}
 }
 
 function setupBoardDisplay(player1, player2) {
+	player1board.innerHTML = ''
+	player2board.innerHTML = ''
 	populateBoardForPlayer(player1board, player1);
 	populateBoardForPlayer(player2board, player2);
-	renderMessage("White = miss", "white");
-	renderMessage("Red = hit", "red");
 	renderShipMessage(player1);
 	renderShipMessage(player2);
 }
 
+function updateBoardForPlayer(displayBoard, player){
+	let playerBoard = player.gameBoard.board;
+	for (let y = 0; y <= 9; y++) {
+		for (let x = 0; x <= 9; x++) {
+			const coord = `${x}${y}`;
+			const cell = displayBoard.querySelector(`#c${coord}`)
+			if (coord in playerBoard) {
+				cell.classList.add("hasShip");
+			}
+		}
+	}
+	
+}
+
 function populateBoardForPlayer(displayBoard, player) {
 	let playerBoard = player.gameBoard.board;
-	for (let y = 1; y <= 10; y++) {
-		for (let x = 1; x <= 10; x++) {
+	for (let y = 0; y <= 9; y++) {
+		for (let x = 0; x <= 9; x++) {
 			const coord = `${x}${y}`;
 			const cell = document.createElement("div");
 			cell.classList.add("cell");

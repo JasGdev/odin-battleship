@@ -10,12 +10,16 @@ export class Gameboard {
 		this.attacks = new Set();
 	}
 
-	placeShipAt(ship, coord, direction) {
+	placeShipAt(ship, coord, direction, type) {
 		// h extends right, v extends down
 		// coord will be 'xy'
 		let positions = [];
-		let x = Number(coord.toString().at(0));
-		let y = Number(coord.toString().at(1));
+		let x;
+		let y;
+
+		x = Number(coord.toString().at(0));
+		y = Number(coord.toString().at(1));
+
 		let length = ship.length;
 
 		for (let i = 0; i < length; i++) {
@@ -29,24 +33,24 @@ export class Gameboard {
 				yPos = y - i;
 			}
 			if (`${xPos}${yPos}` in this.board) {
-				renderMessage(`Your ship at ${xPos},${yPos} is taken up by another ship`);
+				if (type == 'real') renderMessage(`Your ship at ${xPos},${yPos} is taken up by another ship`, 'white');
+
 				return false;
 			}
 			if (xPos < 0 || xPos > 9 || yPos < 0 || yPos > 9) {
-				renderMessage(`Your ship at ${xPos},${yPos} is out of bounds`);
-				return false 
+				if (type == 'real') renderMessage(`Your ship at ${xPos},${yPos} is out of bounds`, 'white');
+				return false;
 			}
 
 			positions.push(`${xPos}${yPos}`);
 		}
 
 		this.ships.push(ship);
-		
 
 		for (const pos of positions) {
 			this.board[pos] = this.ships.indexOf(ship);
 		}
-		return true
+		return true;
 	}
 
 	shipAt(coord) {

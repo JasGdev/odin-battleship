@@ -99,6 +99,11 @@
 	background-color: black;
 }
 
+.gameboard2 .hit {
+	background-color: rgb(255, 0, 0);
+}
+
+
 .gameboard2 .hasShip {
 	background-color: rgb(255, 0, 0);
 }
