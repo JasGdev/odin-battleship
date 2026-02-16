@@ -48,21 +48,28 @@ export function setupBoard(player) {
 	} else {
 		renderMessage('Click on your display to place your ships', 'white');
 		renderMessage('Order: ship size 2, 3, 4, 5', 'white');
-		placeShipControls(player, ships[0]);
-		player.isTurn = true
+		placeShipControls(player, ships);
+		player.isTurn = true;
 	}
 }
 
 function placeShipControls(player, ship) {
+	let shipIndex = 0;
 	for (let y = 0; y <= 9; y++) {
 		for (let x = 0; x <= 9; x++) {
 			const coord = `${x}${y}`;
 			const cell = document.querySelector(`.gameboard1 #c${coord}`);
 			cell.addEventListener('mousedown', function () {
-				console.log(coord);
-				player.gameBoard.placeShipAt(ship, coord, 'h', 'real');
-				console.log(1);
-				// console.log(player.gameBoard)
+				if (shipIndex > ship.length){
+					return
+				}
+				if (player.gameBoard.placeShipAt(ship[shipIndex], coord, 'h', 'real') == true) {
+					shipIndex += 1;
+				}
+				if (shipIndex == ship.length){
+					renderMessage("Ok, game start! Try and sink the AI's ships", 'white')
+					shipIndex += 1;
+				}
 				renderDisplay(player);
 			});
 		}
@@ -70,8 +77,8 @@ function placeShipControls(player, ship) {
 }
 
 function getRandomCoord() {
-	let randomX = Math.floor(Math.random() * 10) + 1;
-	let randomY = Math.floor(Math.random() * 10) + 1;
+	let randomX = Math.floor(Math.random() * 10);
+	let randomY = Math.floor(Math.random() * 10);
 	return `${randomX}${randomY}`;
 }
 
