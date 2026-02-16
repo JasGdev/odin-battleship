@@ -31,7 +31,8 @@ export class Gameboard {
 			} else if (direction == 'd') {
 				xPos = x;
 				yPos = y + i;
-			} if (direction == 'l') {
+			}
+			if (direction == 'l') {
 				xPos = x - i;
 				yPos = y;
 			} else if (direction == 'u') {
@@ -39,12 +40,12 @@ export class Gameboard {
 				yPos = y - i;
 			}
 			if (`${xPos}${yPos}` in this.board) {
-				if (type == 'real') renderMessage(`Your ship at ${xPos+1},${yPos+1} is taken up by another ship`, 'white');
+				if (type == 'real') renderMessage(`Your ship at ${xPos + 1},${yPos + 1} is taken up by another ship`, 'white');
 
 				return false;
 			}
 			if (xPos < 0 || xPos > 9 || yPos < 0 || yPos > 9) {
-				if (type == 'real') renderMessage(`Your ship at ${xPos+1},${yPos+1} is out of bounds`, 'white');
+				if (type == 'real') renderMessage(`Your ship at ${xPos + 1},${yPos + 1} is out of bounds`, 'white');
 				return false;
 			}
 
@@ -79,14 +80,14 @@ export class Gameboard {
 		const other = boardOwnerType == 'ai' ? "AI's" : 'your';
 		if (attacker.isTurn == false) return;
 		if (this.attacks.has(coord)) {
-			renderMessage(`${self} already attacked this coordinate try again`, 'yellow');
+			if (attacker.type == 'real') renderMessage(`${self} already attacked this coordinate try again`, 'yellow');
 			return false;
 		} else {
 			attacker.isTurn = false;
 			boardOwner.isTurn = true;
 			if (boardOwner.type == 'ai') cell.classList.remove('hidden');
-			const xCoord = Number(coord.at(0))+1
-			const yCoord = Number(coord.at(1))+1
+			const xCoord = Number(coord.at(0)) + 1;
+			const yCoord = Number(coord.at(1)) + 1;
 			// if a ship is hit
 			if (coord in this.board) {
 				this.shipAt(coord).hit();
@@ -120,5 +121,9 @@ export class Gameboard {
 			if (!ship.isSunk()) return false;
 		}
 		return true;
+	}
+
+	getHits() {
+		return [...this.attacks].filter((item) => !this.missedAttacks.has(item));
 	}
 }

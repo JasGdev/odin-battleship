@@ -19,14 +19,53 @@ export function initBoardControl(attacker, boardOwner, boardNum = 2) {
 }
 
 export function aiPlayTurn(player, ai) {
-	const aiPlayedMoves = player.gameBoard.attacks;
-	let coord = getRandomCoord();
+	const playerBoard = player.gameBoard;
+	let aiHits = playerBoard.getHits();
+	let aiHitsValid = aiHits.filter((coord) => !playerBoard.shipAt(coord).isSunk());
+	console.log(aiHits);
 
-	while (aiPlayedMoves.has(coord)) {
-		coord = getRandomCoord();
+	if (aiHitsValid.length > 0){
+		for (const coord of aiHitsValid) {
+			
+			const directions = ['u', 'd', 'r', 'l']
+			for (const direction of directions){
+				const newCoord = translateCoord(coord, direction)
+				const cell = document.querySelector(`.gameboard1 #c${newCoord}`);
+				if (player.gameBoard.receiveAttack(newCoord, ai, player, cell)) {
+					return
+				}
+					
+					
+					
+			}
+			
+		}
 	}
-	const cell = document.querySelector(`.gameboard1 #c${coord}`);
-	player.gameBoard.receiveAttack(coord, ai, player, cell);
+
+	if (aiHitsValid.length == 0) {
+		const aiPlayedMoves = player.gameBoard.attacks;
+		let coord = getRandomCoord();
+
+		while (aiPlayedMoves.has(coord)) {
+			coord = getRandomCoord();
+		}
+		const cell = document.querySelector(`.gameboard1 #c${coord}`);
+		player.gameBoard.receiveAttack(coord, ai, player, cell);
+	}
+}
+
+function translateCoord(coord, direction){
+	const xCoord = Number(coord.at(0));
+	const yCoord = Number(coord.at(1));
+	let xChange = 0;
+	let yChange = 0;
+	if (direction == 'r') xChange = 1;
+	if (direction == 'l') xChange = -1;
+	if (direction == 'd') yChange = 1;
+	if (direction == 'u') yChange = -1;
+	const newX = xCoord + xChange ;
+	const newY = yCoord + yChange ;
+	return newX.toString() + newY.toString()
 }
 
 export function setupBoard(player) {
@@ -70,15 +109,15 @@ function placeShipControls(player, ship) {
 
 			cell.addEventListener('mousemove', (e) => {
 				if (!isDragging) return;
-				
+				if (player.isTurn == true) return;
 				const endCoord = coord; // current hovered cell
 				const direction = getDirection(startCoord, endCoord);
-				previewShipAt(startCoord, direction, ship[shipIndex].length)
+				previewShipAt(startCoord, direction, ship[shipIndex].length);
 				renderDisplay(player);
 			});
 
 			cell.addEventListener('mouseup', (e) => {
-				undoPreview()
+				undoPreview();
 				if (!isDragging) return;
 				0;
 				isDragging = false;

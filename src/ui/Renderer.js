@@ -54,9 +54,6 @@ function previewShipAt(startCoord, direction, length) {
 		const previewCell = player1board.querySelector(`#c${xCoord + xChange * i}${yCoord + yChange * i}`);
 		previewCells.add(previewCell);
 	}
-
-	console.log(direction);
-	console.log(previewCells);
 	previewCells.forEach((cell) => cell.classList.add('hasShip'));
 }
 
