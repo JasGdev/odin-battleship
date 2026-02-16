@@ -2,7 +2,7 @@ import { Player } from "./core/Player.js";
 import { Ship } from "./core/Ship.js";
 import { Gameboard } from "./core/Gameboard.js";
 import { renderDisplay, setupBoard } from "./ui/Renderer.js";
-import { initBoardControl } from "./ui/Controller.js";
+import {  initBoardControl, startGame } from "./ui/Controller.js";
 
 const board1 = new Gameboard()
 board1.setupBoard()
@@ -20,4 +20,5 @@ console.table(player2.gameBoard.ships)
 
 // renderDisplay(player1, player2)
 setupBoard(player1, player2)
-initBoardControl(player2)
+initBoardControl(player1, player2)
+startGame(player1, player2)

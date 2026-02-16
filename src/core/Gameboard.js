@@ -1,5 +1,5 @@
-import { renderMessage } from "../ui/Renderer.js";
-import { Ship } from "./Ship.js";
+import { renderMessage } from '../ui/Renderer.js';
+import { Ship } from './Ship.js';
 
 export class Gameboard {
 	constructor() {
@@ -22,17 +22,14 @@ export class Gameboard {
 		for (let i = 0; i < length; i++) {
 			let xPos;
 			let yPos;
-			if (direction == "h") {
+			if (direction == 'h') {
 				xPos = x + i;
 				yPos = y;
-			} else if (direction == "v") {
+			} else if (direction == 'v') {
 				xPos = x;
 				yPos = y - i;
 			}
-			if (`${xPos}${yPos}` in this.board)
-				throw new Error(
-					`Your ship at ${xPos},${yPos} is taken up by another ship`,
-				);
+			if (`${xPos}${yPos}` in this.board) throw new Error(`Your ship at ${xPos},${yPos} is taken up by another ship`);
 			if (xPos < 0 || xPos > 9 || yPos < 0 || yPos > 9)
 				throw new Error(`Your ship at ${xPos},${yPos} is out of bounds`);
 			positions.push(`${xPos}${yPos}`);
@@ -51,39 +48,52 @@ export class Gameboard {
 	}
 
 	display() {
-		console.log("board");
+		console.log('board');
 		console.table(this.board);
-		console.log("ships");
+		console.log('ships');
 		console.table(this.ships);
-		console.log("misses");
+		console.log('misses');
 		console.table(this.missedAttacks);
 	}
 
-	receiveAttack(coord, playerType) {
-		const self = playerType = 'ai' ? 'You':"AI";
-		const other = playerType = 'ai' ? 'my':"your";
+	receiveAttack(coord, attacker, boardOwner, cell) {
+		const boardOwnerType = boardOwner.type;
+		const self = boardOwnerType == 'ai' ? 'You' : 'AI';
+		const other = boardOwnerType == 'ai' ? "AI's" : 'your';
+		if (attacker.isTurn == false) return;
 		if (this.attacks.has(coord)) {
 			renderMessage(`${self} already attacked this coordinate try again`, 'yellow');
-			return false
+			return false;
 		} else {
+			attacker.isTurn = false;
+			boardOwner.isTurn = true;
+			if (boardOwner.type == 'ai') cell.classList.remove('hidden')
+
+			// if a ship is hit
 			if (coord in this.board) {
 				this.shipAt(coord).hit();
+				cell.classList.add('hit')
+				
 				renderMessage(`${self} hit at ${coord}`, 'red');
-				const hitShip = this.shipAt(coord)
-				if (hitShip.isSunk()){
-					renderMessage(`${self} sunk ${other} ${hitShip.length} length ship` , 'red')
+				const hitShip = this.shipAt(coord);
+				if (hitShip.isSunk()) {
+					renderMessage(`${self} sunk ${other} ${hitShip.length} length ship`, 'red');
 				}
-				if (this.isAllSunk()){
-					renderMessage(`${self} sunk all ${other} ships! Game Over`, 'red')
-					return
+				if (this.isAllSunk()) {
+					renderMessage(`${self} sunk all ${other} ships! Game Over`, 'red');
+					attacker.isTurn = false;
+					boardOwner.isTurn = false;
+					return;
 				}
-
-			} else {
+			} 
+			// if a miss
+			else {
+				cell.classList.add('missed')
 				this.missedAttacks.add(coord);
 				renderMessage(`${self} missed at ${coord}`, 'white');
 			}
-			this.attacks.add(coord)
-			return true
+			this.attacks.add(coord);
+			return true;
 		}
 	}
 
@@ -101,10 +111,10 @@ export class Gameboard {
 		const ship4 = new Ship(4);
 		const ship5 = new Ship(5);
 
-		this.placeShipAt(ship1, 11, "h");
-		this.placeShipAt(ship2, 12, "h");
-		this.placeShipAt(ship3, 13, "h");
-		this.placeShipAt(ship4, 14, "h");
-		this.placeShipAt(ship5, 15, "h");
+		this.placeShipAt(ship1, 11, 'h');
+		this.placeShipAt(ship2, 12, 'h');
+		this.placeShipAt(ship3, 13, 'h');
+		this.placeShipAt(ship4, 14, 'h');
+		this.placeShipAt(ship5, 15, 'h');
 	}
 }

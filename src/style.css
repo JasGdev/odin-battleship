@@ -95,6 +95,10 @@
 	background-color: rgb(0, 23, 200);
 }
 
+.gameboard1 .hit {
+	background-color: black;
+}
+
 .gameboard2 .hasShip {
 	background-color: rgb(255, 0, 0);
 }
@@ -103,9 +107,11 @@
 	background-color: rgb(61, 61, 61);
 }
 
-.hit {
+.missed {
 	background-color: rgb(182, 182, 182);
 }
+
+
 
 .display1,
 .display2 {
